@@ -69,6 +69,11 @@ namespace _Project.Scripts.Loading
                 progressBar.value = currentProgress;
             }
             
+            CloseUi();
+        }
+
+        public void CloseUi()
+        {
             loadingUi.SetActive(false);
         }
         

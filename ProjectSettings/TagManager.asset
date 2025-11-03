@@ -4,11 +4,8 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - ship
-  - asteroid
-  - Aya
-  - Ura
-  - Oga
+  - SoundManager
+  - Background
   layers:
   - Default
   - TransparentFX

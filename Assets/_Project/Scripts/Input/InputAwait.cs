@@ -55,6 +55,7 @@ namespace _Project.Scripts.Input
             if (_repeat >= 1)
             {
                 DOTween.Kill("unfadegirl");
+                DOTween.Kill("unfadedurat");
                 _canvasGroup.DOFade(1f, 0.2f).SetEase(Ease.InFlash);
                 if (!_exp) return;
             }
@@ -64,7 +65,12 @@ namespace _Project.Scripts.Input
             var tw = "unfadegirl";
             if (_exp) tw = "unfadedurat";
             if (_exp) unfadedurat = 1.1f;
-            
+
+            if (_canvasGroup == null)
+            {
+                Dispose();
+                return;
+            }
             _canvasGroup.DOFade(1f, 0.2f).SetEase(Ease.InFlash).OnComplete((() => _canvasGroup.DOFade(0, unfadedurat).SetEase(Ease.OutFlash))).SetId(tw);
             Dispose();
         }

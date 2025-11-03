@@ -1,7 +1,6 @@
 using _Project.Scripts.Loading;
 using _Project.Scripts.Services;
 using System.Collections.Generic;
-using System.Linq;
 using _Project.Scripts.Input;
 using Sirenix.Utilities;
 using UnityEngine;
@@ -11,9 +10,10 @@ namespace _Project.Scripts.EntryPoints
 {
     public class BootstrapEntryPoint : MonoBehaviour
     {
-        [SerializeField] SoundManager soundManager;
+        [SerializeField] private SoundManager soundManager;
         [SerializeField] private InputManager inputManager;
         [SerializeField] private LoadingManager loadingManager;
+        [SerializeField] private Animator background;
         
         private async void Start()
         {
@@ -22,7 +22,7 @@ namespace _Project.Scripts.EntryPoints
             loadingManager.Initialize();
             
             var fakeServices = new List<FakeService>();
-            var rand1 = 1500;
+            const int rand1 = 1500;
             var i = 0;
             while (fakeServices.Count < rand1)
             {
@@ -48,7 +48,21 @@ namespace _Project.Scripts.EntryPoints
             }
             
             await LoadingManager.Instance.LoadSceneAsync("Game1", loadingSteps);
+            OnOutScene();
+        }
+        
+        private void OnOutScene()
+        {
+            background.SetTrigger("Out");
             soundManager.HideAsset();
+            DontDestroyOnLoad(background);
+        }
+
+        public void SkipScene()
+        {
+            OnOutScene();
+            loadingManager.CloseUi();
+            UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("Game1");
         }
         
         private readonly List<string> _loadingPhrases = new()

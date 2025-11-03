@@ -19,6 +19,9 @@ namespace _Project.Scripts.Services
         public AudioClip hardButtonSound;
         public AudioClip[] lowButtonTypeSound;
 
+        public AudioClip random;
+        public AudioClip tone;
+
         [SerializeField, Space(5)] private TMP_InputField volume;
         [SerializeField, Space(5)] private TMP_InputField nickname;
         private string _applyName;

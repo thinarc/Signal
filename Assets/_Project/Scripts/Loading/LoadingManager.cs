@@ -43,7 +43,8 @@ namespace _Project.Scripts.Loading
             var currentProgress = 0f;
             
             progressBar.value = currentProgress;
-            loadingUi.SetActive(true);
+            if (SceneManager.GetActiveScene().buildIndex == 0 || SceneManager.GetActiveScene().buildIndex == 1) loadingUi.SetActive(true);
+            else loadingUi.SetActive(false);
         
             foreach (var step in steps)
             {
@@ -72,6 +73,8 @@ namespace _Project.Scripts.Loading
             CloseUi();
             girl.gameObject.SetActive(false);
             unfadeGirl.gameObject.SetActive(false);
+            statusText.gameObject.SetActive(false);
+            loadingUi.SetActive(false);
         }
 
         public void CloseUi()

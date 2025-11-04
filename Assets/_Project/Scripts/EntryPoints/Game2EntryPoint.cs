@@ -20,6 +20,9 @@ namespace _Project.Scripts.EntryPoints
 
         private async void Start()
         {
+            SoundManager.Instance.Play(SoundManager.Instance.bg3);
+            SoundManager.Instance.GetComponent<AudioLowPassFilter>().enabled = false;
+            
             termsWrap.DOScale(0, 0);
             termsWrap.DOScale(1, 0.1f).SetEase(Ease.InBounce);
             
@@ -31,6 +34,7 @@ namespace _Project.Scripts.EntryPoints
             termPool.Initialize();
             foreach (var term in superterms) term.text = "";
             
+            await UniTask.Delay(500);
             superterms[0].text = "You're not a user, you're a process.";
             await UniTask.Delay(2200);
             buttons[0].DOScale(1, 0.2f).SetEase(Ease.Flash);

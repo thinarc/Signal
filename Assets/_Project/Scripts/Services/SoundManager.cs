@@ -57,7 +57,7 @@ namespace _Project.Scripts.Services
         {
             while (audioSource.volume > 0.1f)
             {
-                audioSource.volume = Mathf.Lerp(audioSource.volume, 0, Time.deltaTime * 2);
+                audioSource.volume = Mathf.Lerp(audioSource.volume, 0, Time.deltaTime * 4);
                 await UniTask.Yield();
             }
             

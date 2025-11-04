@@ -6,6 +6,10 @@ TagManager:
   tags:
   - SoundManager
   - Background
+  - whotag
+  - heretag
+  - dontlooktag
+  - incomingtag
   layers:
   - Default
   - TransparentFX

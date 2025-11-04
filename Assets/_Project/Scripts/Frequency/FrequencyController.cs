@@ -130,10 +130,10 @@ namespace _Project.Scripts.Frequency
 
             switch (_cycle)
             {
-                case 1: _term.CreateTerminal("who... hears...?"); break;
-                case 2: _term.CreateTerminal("I'm... here..."); break;
-                case 3: _term.CreateTerminal("you don't have to look..."); break;
-                case 4: await _term.CreateTerminalAsync("INCOMING TRANSMISSION: lain.exe", "Don't switch off. We are one.");
+                case 1: _term.CreateVoiceTerminal("whohears", "who... hears...?"); break;
+                case 2: _term.CreateVoiceTerminal("imhere", "I'm... here..."); break;
+                case 3: _term.CreateVoiceTerminal("dnthavetolook", "you don't have to look..."); break;
+                case 4: await _term.CreateVoiceTerminalAsync("dontswitchoff", "INCOMING TRANSMISSION: lain.exe", "Don't switch off. We are one.");
                     _passed = true; break;
             }
         }

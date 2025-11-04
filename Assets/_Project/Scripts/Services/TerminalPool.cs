@@ -45,12 +45,37 @@ namespace _Project.Scripts.Services
             return term.GetComponent<Terminal>();
         }
 
-        public async UniTask CreateTerminalAsync(params string[] phrases)
+        public void CreateVoiceTerminal(string id = "", params string[] phrases)
+        {
+            var term = CreateTerminal(phrases);
+            
+            if (id == "") return;
+            foreach (var t in term.GetComponentsInChildren<AudioSource>(true))
+            {
+                if (t.name != id) continue;
+                var clip = t.clip;
+                SoundManager.Instance?.PlayOneShot(clip);
+            }
+        }
+        
+        public async UniTask CreateVoiceTerminalAsync(string id = "", params string[] phrases)
+        {
+            await CreateTerminalAsync(id, phrases);
+        }
+
+        public async UniTask CreateTerminalAsync(string id, params string[] phrases)
         {
             var waiting = true;
             
             var term = CreateTerminal(phrases);
             term.button.onClick.AddListener(() => waiting = false);
+            if (id == "") return;
+            foreach (var t in term.GetComponentsInChildren<AudioSource>(true))
+            {
+                if (t.name != id) continue;
+                var clip = t.clip;
+                SoundManager.Instance?.PlayOneShot(clip);
+            }
             await UniTask.WaitUntil(() => !waiting);
         }
     }

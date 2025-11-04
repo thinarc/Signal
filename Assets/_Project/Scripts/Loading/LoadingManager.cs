@@ -70,6 +70,8 @@ namespace _Project.Scripts.Loading
             }
             
             CloseUi();
+            girl.gameObject.SetActive(false);
+            unfadeGirl.gameObject.SetActive(false);
         }
 
         public void CloseUi()

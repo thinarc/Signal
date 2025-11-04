@@ -41,6 +41,7 @@ namespace _Project.Scripts.EntryPoints
             await UniTask.Delay(800);
             SoundManager.Instance.Play(SoundManager.Instance.bg3);
             SoundManager.Instance.GetComponent<AudioLowPassFilter>().enabled = false;
+            frequencySlider.interactable = false;
             await termPool.CreateTerminalAsync("passed", "passed");
             await LoadingManager.Instance.LoadSceneAsync("Game2", new List<LoadingStep>());
             ClearUi();

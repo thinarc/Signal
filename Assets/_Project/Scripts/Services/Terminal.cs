@@ -28,7 +28,7 @@ namespace _Project.Scripts.Services
 
         private void OnDisable()
         {
-            button.onClick.RemoveAllListeners();
+            button?.onClick?.RemoveAllListeners();
         }
     }
 }

@@ -86,7 +86,7 @@ namespace _Project.Scripts.Frequency
             _noiseSource.volume = Mathf.Lerp(_noiseSource.volume, _startNoiseVolume * 1.3f * _signalStrength, Time.deltaTime * 100);
 
             _wave.amplitude = _startAmplitude - _signalStrength * 10;
-            if (_signalStrength > 0.98f)
+            if (_signalStrength > 0.91f)
             {
                 _currentHitSliderValue = _slider.value;
             }

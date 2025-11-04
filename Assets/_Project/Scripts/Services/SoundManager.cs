@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -11,7 +12,7 @@ namespace _Project.Scripts.Services
     {
         public static SoundManager Instance { get; private set; }
         
-        [FormerlySerializedAs("_audioSource")] [SerializeField] private AudioSource audioSource;
+        [FormerlySerializedAs("_audioSource")] public AudioSource audioSource;
         [FormerlySerializedAs("_audioSources")] [SerializeField] private AudioSource[] audioSources;
         private float _sourceStartValue;
         private readonly List<float> _sourcesStartValues = new();
@@ -22,12 +23,17 @@ namespace _Project.Scripts.Services
         public AudioClip random;
         public AudioClip tone;
 
+        public AudioClip bg2;
+        public AudioClip bg3;
+
         [SerializeField, Space(5)] private TMP_InputField volume;
         [SerializeField, Space(5)] private TMP_InputField nickname;
-        private string _applyName;
+        public string applyName;
 
         public void Initialize()
         {
+            applyName = "unknown";
+            
             if (Instance == null)
             {
                 Instance = this;
@@ -45,6 +51,24 @@ namespace _Project.Scripts.Services
                 audioSources[i].volume = _sourcesStartValues[0] * 0.75f;
             }
             
+        }
+
+        public async void Play(AudioClip clip)
+        {
+            while (audioSource.volume > 0.1f)
+            {
+                audioSource.volume = Mathf.Lerp(audioSource.volume, 0, Time.deltaTime * 2);
+                await UniTask.Yield();
+            }
+            
+            audioSource.clip = clip;
+            audioSource.Play();
+            
+            while (audioSource.volume < _sourceStartValue - 0.04f)
+            {
+                audioSource.volume = Mathf.Lerp(audioSource.volume, _sourceStartValue, Time.deltaTime * 1.5f);
+                await UniTask.Yield();
+            }
         }
 
         public void PlayOneShot(AudioClip clip)
@@ -88,9 +112,9 @@ namespace _Project.Scripts.Services
         public void OnEndEditNickname()
         {
             nickname.text = nickname.text.Replace("_", "");
-            if (nickname.text == "") nickname.text = "wired";
-            _applyName = nickname.text;
-            nickname.text = "_" + nickname.text;
+            if (nickname.text == "") nickname.text = "unknown";
+            applyName = nickname.text;
+            nickname.text = "_" + nickname.text.ToLower();
         }
 
         public void HideAsset()

@@ -7,6 +7,7 @@ namespace _Project.Scripts.Services
 {
     public class TerminalPool : MonoBehaviour
     {
+        
         [SerializeField] private GameObject termPrefab;
         [SerializeField] private Transform parentSpawn;
         [SerializeField] private RectTransform canvasRect;

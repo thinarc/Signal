@@ -22,6 +22,7 @@ namespace _Project.Scripts.EntryPoints
         
         private async void Start()
         {
+            SoundManager.Instance.Play(SoundManager.Instance.bg2);
             background = GameObject.FindWithTag("Background").GetComponent<Animator>();
             
             wave.Initialize();
@@ -37,7 +38,10 @@ namespace _Project.Scripts.EntryPoints
             termPool.CreateTerminal("sound then reacts.");
             _frequencyController.BindTerminalPool(termPool);
             await _frequencyController.BindAwaitEvent();
-            await UniTask.Delay(400);
+            await UniTask.Delay(800);
+            SoundManager.Instance.Play(SoundManager.Instance.bg3);
+            SoundManager.Instance.GetComponent<AudioLowPassFilter>().enabled = false;
+            await termPool.CreateTerminalAsync("passed", "passed");
             await LoadingManager.Instance.LoadSceneAsync("Game2", new List<LoadingStep>());
             ClearUi();
         }
